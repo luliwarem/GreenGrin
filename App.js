@@ -1,15 +1,19 @@
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
-import logoGreenGrin from "./assets/LogoTerminado.png"
+import { Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
+import { Alert } from "react-native-web";
+import logoGreenGrin from "./assets/LogoTerminado.png";
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Proyecto final!</Text>
-      <Image
-        source={logoGreenGrin}
-        style={styles.image}
-      />
+      <Image source={logoGreenGrin} style={styles.image} />
+      <TouchableOpacity
+      style = {styles.button}
+      onPress={()=> console.log("Hola!")}
+      >
+      <Text style={styles.title}>Ingresar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -21,7 +25,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  title: { fontSize: 30, color: "darkolivegreen" },
-  image:{height:"20%", width:"100%"}
-
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'green',
+    padding: 10,
+    borderRadius: 10
+    
+  },
+  title: {color: "white"},
+  image: { height: 200, width: 300, resizeMode: "contain" },
 });
