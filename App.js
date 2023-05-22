@@ -1,11 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Text, View, StyleSheet, Image } from "react-native";
+import logoGreenGrin from "./assets/LogoTerminado.png"
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Proyecto final!</Text>
+      <Image
+        source={logoGreenGrin}
+        style={styles.image}
+      />
     </View>
   );
 }
@@ -13,8 +17,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
+  title: { fontSize: 30, color: "darkolivegreen" },
+  image:{height:"20%", width:"100%"}
+
 });
