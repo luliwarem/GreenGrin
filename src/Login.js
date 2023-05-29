@@ -70,6 +70,13 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingHorizontal: 80,
     borderRadius: 20,
+    
+    shadowOffset: {
+      width: 3,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
   },
   gradient: {
     justifyContent: 'center',
