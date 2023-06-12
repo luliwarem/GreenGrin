@@ -1,19 +1,44 @@
 import React from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from "react-native";
-import { Alert } from "react-native-web";
-import Login from "./Login"
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import Login from "./Login";
 import { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from "./HomeScreen";
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
-  function Ingresar(Usuario){}
-  const[Usuario, setUsuario] = useState('')
-  
+  function Ingresar(Usuario) {
+    alert("hola");
+  }
+  const [Usuario, setUsuario] = useState("");
+
   return (
-    <View style={styles.container}>
-      <Login onIngresar = {Ingresar} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen style={styles.container}
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen style={styles.container}
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        >
+
+        </Stack.Screen>
+      </Stack.Navigator>
+
+    </NavigationContainer>
   );
 }
 
@@ -25,3 +50,4 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
 });
+

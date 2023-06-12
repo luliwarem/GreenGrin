@@ -11,7 +11,7 @@ import { Formik } from "formik";
 import { LinearGradient } from "expo-linear-gradient";
 import logoGreenGrin from "../assets/LogoTerminado.png";
 
-export default function Login({ onIngresar }) {
+export default function Login({ navigation }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const datos = new FormData(e.target);
@@ -39,10 +39,16 @@ export default function Login({ onIngresar }) {
             placeholder="Contraseña"
             onChangeText={handleChange("contrasena")}
           />
-          <LinearGradient colors={['#479A50', '#94C11F']} style={styles.gradient}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Ingresar</Text>
-          </TouchableOpacity>
+          <LinearGradient
+            colors={["#479A50", "#94C11F"]}
+            style={styles.gradient}
+          >
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("HomeScreen")}
+            >
+              <Text style={styles.buttonText}>Ingresar</Text>
+            </TouchableOpacity>
           </LinearGradient>
           <TouchableOpacity style={styles.invisibleButton}>
             <Text style={styles.quitLogin}>
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingHorizontal: 80,
     borderRadius: 20,
-    
+
     shadowOffset: {
       width: 3,
       height: 5,
@@ -79,8 +85,8 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   gradient: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
   },
   buttonText: {
@@ -105,8 +111,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  invisibleButton:{
-    marginTop: 10 ,
+  invisibleButton: {
+    marginTop: 10,
   },
   image: { height: 200, width: 300, resizeMode: "contain" },
 });
