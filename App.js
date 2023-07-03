@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import Login from "./Login";
+import Login from "./src/Login";
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "./src/HomeScreen";
+import QRScanner from "./src/QRScanner";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,23 +23,7 @@ export default function App() {
   const [Usuario, setUsuario] = useState("");
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen style={styles.container}
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen style={styles.container}
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        >
-
-        </Stack.Screen>
-      </Stack.Navigator>
-
-    </NavigationContainer>
+    <QRScanner></QRScanner>
 
 
   );

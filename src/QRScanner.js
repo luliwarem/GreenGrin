@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Text,
   View,
@@ -7,12 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import CirculoPuntos from "./CirculoPuntos";
 import axios from 'axios'
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 
@@ -45,6 +40,18 @@ export default function QRScanner({navigation}){
     // Maneja el error en caso de fallo de la solicitud
     console.error(error);
   });
+
+  render(); {
+    return (
+      <View style={styles.container}>
+        <QRCodeScanner
+          onRead={this.onQRCodeRead}
+          cameraStyle={styles.cameraContainer}
+        />
+      </View>
+    );
+  }
+  
 }
 
 onQRCodeRead = (e) => {
@@ -52,16 +59,6 @@ onQRCodeRead = (e) => {
   console.log(e.data);
 };
 
-render(); {
-  return (
-    <View style={styles.container}>
-      <QRCodeScanner
-        onRead={this.onQRCodeRead}
-        cameraStyle={styles.cameraContainer}
-      />
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
