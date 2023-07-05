@@ -1,14 +1,11 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
   StyleSheet,
-  Image,
-  TouchableOpacity,
-  TextInput,
+  Button,
 } from "react-native";
-import axios from 'axios'
-import QRCodeScanner from 'react-native-qrcode-scanner';
+import {BarCodeScanner} from 'expo-barcode-scanner';
 
 
 //npm install react-native-camera react-native-qrcode-scanner
@@ -19,7 +16,44 @@ export default function QRScanner({navigation}){
   const [idEstacion, setIdEstacion] = useState({})
   const [botellasIngresadas, setBotellasIngresadas] = useState({})
   const [puntos, setPuntos] = useState({})
+  const [hasPermission, setHasPermission] = useState(null)
+  const [scanned, setScanned] = useState(false)
+  const [text, setText] = useState('Not yet scanned')
   
+  const askForCameraPermission = () => {
+    (async () => {
+      const {status} = await BarCodeScanner.requestPermissionAsync();
+      setHasPermission(status === 'granted');
+      console.log("dale que se puedeee")
+    })()
+  }
+
+  useEffect(() => {
+    askForCameraPermission();
+  }, [])
+
+  const handleBarCodeScanned = ({type, data}) => {
+    setScanned(true);
+    setText(data)
+    console.log('Type: ' + type + '\nData: ' + data)
+  };
+
+  if(hasPermission === null){
+    return(
+      <View style={styles.container}>
+        <Text> Requesting for camera permission</Text>
+        <Button title = {'Allow camera'} onPress={() => askForCameraPermission()}/>
+
+      </View>)
+  }
+
+  if(hasPermission === false) {
+    return (
+      <View style={styles.container}>
+      <Text style= {{margin: 100}}> No access to camera</Text>
+      <Button title = {'Allow camera'} onPress={() => askForCameraPermission()}/>
+    </View>)
+  }
 
   axios.post('https://localhost:3000/movimientos/', { idEstacion : idEstacion, botellasIngresadas: botellasIngresadas, fecha: date, puntos : puntos })
   .then(response => {
@@ -63,6 +97,8 @@ onQRCodeRead = (e) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 100,
+
   },
   cameraContainer: {
     flex: 1,
