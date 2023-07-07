@@ -24,8 +24,6 @@ export default function App() {
 
   return (
     <QRScanner></QRScanner>
-
-
   );
 }
 

@@ -6,9 +6,8 @@ import {
   Button,
 } from "react-native";
 import {BarCodeScanner} from 'expo-barcode-scanner';
-
-
-//npm install react-native-camera react-native-qrcode-scanner
+// npm install react-native-camera react-native-qrcode-scanner
+// import { RNCamera } from 'react-native-camera'
 
 export default function QRScanner({navigation}){
 
@@ -22,9 +21,9 @@ export default function QRScanner({navigation}){
   
   const askForCameraPermission = () => {
     (async () => {
-      const {status} = await BarCodeScanner.requestPermissionAsync();
+      const status = await BarCodeScanner.requestPermissionsAsync().then(res=>console.log(res)).catch(error=>console.log())
       setHasPermission(status === 'granted');
-      console.log("dale que se puedeee")
+      console.log("hola")
     })()
   }
 
@@ -43,18 +42,9 @@ export default function QRScanner({navigation}){
       <View style={styles.container}>
         <Text> Requesting for camera permission</Text>
         <Button title = {'Allow camera'} onPress={() => askForCameraPermission()}/>
-
       </View>)
   }
-
-  if(hasPermission === false) {
-    return (
-      <View style={styles.container}>
-      <Text style= {{margin: 100}}> No access to camera</Text>
-      <Button title = {'Allow camera'} onPress={() => askForCameraPermission()}/>
-    </View>)
-  }
-
+/*
   axios.post('https://localhost:3000/movimientos/', { idEstacion : idEstacion, botellasIngresadas: botellasIngresadas, fecha: date, puntos : puntos })
   .then(response => {
     // Maneja la respuesta de la API
@@ -74,19 +64,18 @@ export default function QRScanner({navigation}){
     // Maneja el error en caso de fallo de la solicitud
     console.error(error);
   });
+*/
 
-  render(); {
     return (
       <View style={styles.container}>
-        <QRCodeScanner
-          onRead={this.onQRCodeRead}
-          cameraStyle={styles.cameraContainer}
-        />
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
       </View>
     );
   }
   
-}
 
 onQRCodeRead = (e) => {
   // para manejar la informacion del codigo QR leido
