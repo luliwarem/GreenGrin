@@ -6,6 +6,9 @@ import {
   Button,
 } from "react-native";
 import {BarCodeScanner} from 'expo-barcode-scanner';
+import { CurrentRenderContext } from "@react-navigation/native";
+import QRCodeScanner from 'react-native-qrcode-scanner';
+
 // npm install react-native-camera react-native-qrcode-scanner
 // import { RNCamera } from 'react-native-camera'
 
@@ -23,7 +26,6 @@ export default function QRScanner({navigation}){
     (async () => {
       const status = await BarCodeScanner.requestPermissionsAsync().then(res=>console.log(res)).catch(error=>console.log())
       setHasPermission(status === 'granted');
-      console.log("hola")
     })()
   }
 
@@ -39,7 +41,7 @@ export default function QRScanner({navigation}){
 
   if(hasPermission === null){
     return(
-      <View style={styles.container}>
+      <View style={styles.cameraContainer}>
         <Text> Requesting for camera permission</Text>
         <Button title = {'Allow camera'} onPress={() => askForCameraPermission()}/>
       </View>)
@@ -72,6 +74,7 @@ export default function QRScanner({navigation}){
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
+      <Text style={styles.escanea}>Escanea el codigo QR</Text>
       </View>
     );
   }
@@ -86,10 +89,20 @@ onQRCodeRead = (e) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 100,
-
+    padding: 200,
+    
   },
   cameraContainer: {
     flex: 1,
+    margin: 200,
   },
+  Button: {
+    backgroundColor: "#469735"
+  },
+  escanea:{
+    color: "#000000",
+    width: 200,
+    margin: -85,
+    fontWeight: 800,
+  }
 });
