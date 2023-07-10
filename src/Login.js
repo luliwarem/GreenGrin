@@ -11,7 +11,8 @@ import { Formik } from "formik";
 import { LinearGradient } from "expo-linear-gradient";
 import logoGreenGrin from "../assets/LogoTerminado.png";
 
-export default function Login({ navigation }) {
+export default function Login() {
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const datos = new FormData(e.target);
@@ -23,21 +24,17 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <Formik initialValues={{ username: "", password: "" }}>
-      {({ handleChange, handleSubmit, values }) => (
+    <Formik onSubmit={values => console.log(values)}>
+      {({handleSubmit}) => (
         <View style={styles.container}>
           <Image source={logoGreenGrin} style={styles.image} />
           <TextInput
             style={styles.input}
-            value={values.mail}
             placeholder="E-mail"
-            onChangeText={handleChange("mail")}
           />
           <TextInput
             style={styles.input}
-            value={values.contrasena}
             placeholder="Contraseña"
-            onChangeText={handleChange("contrasena")}
           />
           <LinearGradient
             colors={["#479A50", "#94C11F"]}
@@ -45,7 +42,7 @@ export default function Login({ navigation }) {
           >
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate("HomeScreen")}
+              onPress={handleSubmit}
             >
               <Text style={styles.buttonText}>Ingresar</Text>
             </TouchableOpacity>

@@ -18,4 +18,4 @@ yarn run start --tunnel
 
 ***** cada vez que saque o agreguen dependencias ejecutar:
 
-YARN
+YARN add

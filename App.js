@@ -14,16 +14,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from "./src/HomeScreen";
 import QRScanner from "./src/QRScanner";
 
-const Stack = createNativeStackNavigator();
 
 export default function App() {
-  function Ingresar(Usuario) {
-    alert("hola");
-  }
-  const [Usuario, setUsuario] = useState("");
 
   return (
-    <QRScanner></QRScanner>
+    <Login></Login>
   );
 }
 

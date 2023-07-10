@@ -66,8 +66,8 @@ export default function QRScanner({navigation}){
     // Maneja el error en caso de fallo de la solicitud
     console.error(error);
   });  
-  */
-
+  
+*/
 
     return (
       <View style={styles.container}>
