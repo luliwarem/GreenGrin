@@ -8311,7 +8311,7 @@ react-native-permissions@^2.0.2:
 
 react-native-permissions@^3.8.3:
   version "3.8.3"
-  resolved "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-3.8.3.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.8.3.tgz#4d75db347c834ce10927f5f0631ad6026d3eb4ad"
   integrity sha512-KJtCM6JP2IBvcWpapBO0WEMzlwej7rT5N3fvcZI7eCGs7VOuiCRqmq77mfY+R3RAvbcXQZZorTyOqRESDuff5A==
   dependencies:
     picocolors "^1.0.0"

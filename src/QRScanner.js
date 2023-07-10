@@ -65,8 +65,9 @@ export default function QRScanner({navigation}){
   .catch(error => {
     // Maneja el error en caso de fallo de la solicitud
     console.error(error);
-  });
-*/
+  });  
+  */
+
 
     return (
       <View style={styles.container}>
@@ -77,8 +78,8 @@ export default function QRScanner({navigation}){
       <Text style={styles.escanea}>Escanea el codigo QR</Text>
       </View>
     );
-  }
   
+  }
 
 onQRCodeRead = (e) => {
   // para manejar la informacion del codigo QR leido
