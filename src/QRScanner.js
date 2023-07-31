@@ -134,10 +134,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#469735"
   },
   escanea:{
-    color: "#000000",
+   color: "#FFFFFF",
     width: 200,
     margin: -85,
-    fontWeight: 800,
+    fontWeight: 600,
+    backgroundColor: "#479A50",
   }
 });
 
