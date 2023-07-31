@@ -18,7 +18,7 @@ import QRScanner from "./src/QRScanner";
 export default function App() {
 
   return (
-    <Login></Login>
+    <QRScanner></QRScanner>
   );
 }
 

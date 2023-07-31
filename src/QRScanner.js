@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import { CurrentRenderContext } from "@react-navigation/native";
-import QRCodeScanner from 'react-native-qrcode-scanner';
 
 // npm install react-native-camera react-native-qrcode-scanner
 // import { RNCamera } from 'react-native-camera'
