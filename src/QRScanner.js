@@ -8,6 +8,7 @@ import {
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import { CurrentRenderContext } from "@react-navigation/native";
 
+
 // npm install react-native-camera react-native-qrcode-scanner
 // import { RNCamera } from 'react-native-camera'
 
@@ -20,6 +21,9 @@ export default function QRScanner({navigation}){
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
   const [text, setText] = useState('Not yet scanned')
+  const [qrscan, setQrscan] = useState("No result");
+  const [scanResults, setScanResults] = useState([])
+
   
   const askForCameraPermission = () => {
     (async () => {
@@ -77,13 +81,43 @@ export default function QRScanner({navigation}){
       <Text style={styles.escanea}>Escanea el codigo QR</Text>
       </View>
     );
-  
   }
 
 onQRCodeRead = (e) => {
   // para manejar la informacion del codigo QR leido
   console.log(e.data);
 };
+  
+    const handleScan = (data) => {
+      if (data) {
+        setScanResults([...scanResults, data]);
+      }
+    }
+
+  const handleError = (err) => {
+    console.error(err);
+  };
+/*
+  return (
+    <div>
+      <Link to="/">
+        <Fab style={{ marginRight: 10 }} color="primary">
+          <ArrowBack />
+        </Fab>
+      </Link>
+      <span>QR Scanner</span>
+      <center>
+        <div style={{ marginTop: 30 }}>
+          <QrScan
+            delay={300}
+            onError={handleError}
+            onScan={handleScan}
+            style={{ height: 240, width: 320 }}
+          />
+        </div>
+      </center>
+    </div>
+  );*/
 
 
 const styles = StyleSheet.create({
@@ -106,3 +140,4 @@ const styles = StyleSheet.create({
     fontWeight: 800,
   }
 });
+
