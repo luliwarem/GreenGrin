@@ -21,7 +21,7 @@ export default function QRScanner({ navigation }) {
 
   const fetchData2 = (puntos) => {
     axios
-      .put("https://10.152.2.134:3000/user/1", { puntos: puntos })
+      .put("http://10.152.2.134:3000/user/1", { puntos: puntos })
       .then((response) => {
         // Maneja la respuesta de la API
         console.log(response.data);
@@ -41,7 +41,7 @@ export default function QRScanner({ navigation }) {
   ) => {
     console.log("Llamando a movimientos");
     axios
-      .post("http://10.152.2.134:3000/movimientos/", {
+      .post("http://localhost/movimientos/", {
         Id_Estaciones: idEstacion,
         Id_Usuario: idUsuario,
         Fecha: date,
@@ -79,6 +79,7 @@ export default function QRScanner({ navigation }) {
   };
 
   useEffect(() => {
+    fetchData(1, 1, 0, new Date(), 0);
     BarCodeScanner.requestPermissionsAsync()
       .then((res) => {
         console.log(res);
@@ -93,7 +94,9 @@ export default function QRScanner({ navigation }) {
     console.log(
       [idEstacion, idUsuario, botellasIngresadas, date, puntos].join(" - ")
     );
-    onQRCodeRead();
+    if (idEstacion) {
+      onQRCodeRead();
+    }
   }, [idEstacion, idUsuario, botellasIngresadas, date, puntos]);
 
   const handleBarCodeScanned = ({ type, data }) => {
