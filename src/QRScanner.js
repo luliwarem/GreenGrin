@@ -18,63 +18,19 @@ export default function QRScanner({ navigation }) {
   const [text, setText] = useState("Not yet scanned");
   const [qrscan, setQrscan] = useState("No result");
   const [scanResults, setScanResults] = useState([]);
-
-  const fetchData2 = (puntos) => {
-    axios
-      .put("http://10.152.2.134:3000/user/1", { puntos: puntos })
-      .then((response) => {
-        // Maneja la respuesta de la API
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Maneja el error en caso de fallo de la solicitud
-        console.error(error);
-      });
-  };
-
-  const fetchData = (
-    idEstacion,
-    idUsuario,
-    botellasIngresadas,
-    date,
-    puntos
-  ) => {
-    console.log("Llamando a movimientos");
-    axios
-      .post("http://localhost/movimientos/", {
-        Id_Estaciones: idEstacion,
-        Id_Usuario: idUsuario,
-        Fecha: date,
-        CantBotellas: botellasIngresadas,
-        Puntos: puntos,
-      })
-      .then((response) => {
-        console.log("rta de movimientos: ");
-        // Maneja la respuesta de la API
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Maneja el error en caso de fallo de la solicitud
-        console.error(error);
-      });
-  };
+  
+//==================== ABRIR CAMARA ===========================================
 
   const onQRCodeRead = (e) => {
-    // para manejar la informacion del codigo QR leido
-    //console.log(e.data);
     console.log(
       [idEstacion, idUsuario, botellasIngresadas, date, puntos].join(" - ")
     );
     fetchData(idEstacion, idUsuario, botellasIngresadas, date, puntos);
     fetchData2(puntos);
-    //usar el set de idestacion y el de botellas para setearlo para que se pueda postear en movimientos, y calcular puntos para updatear en usuario y en mov.
-    //sacar la fecha y hora de hoy y setearlo en date, cuando alguien escanea el qr. tambien lo posteo en mov
-    //ademas posteo en mov
   };
 
   const askForCameraPermission = () => {
     (async () => {
-      //const status = await
     })();
   };
 
@@ -86,9 +42,9 @@ export default function QRScanner({ navigation }) {
         setHasPermission(res.granted === "granted");
       })
       .catch((error) => console.log());
-
-    //askForCameraPermission();
   }, []);
+
+//============== LEER QR ===================================================
 
   useEffect(() => {
     console.log(
@@ -102,13 +58,9 @@ export default function QRScanner({ navigation }) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     setText(data);
-
     console.log("Type: " + type + "\nData: " + data);
-
     console.log("TIPO!!!!", typeof data);
-
     const obj = JSON.parse(data);
-
     console.log("OBJ!!!!", obj);
     setBotellasIngresadas(obj.botellas);
     setIdEstacion(obj.idEstacion); // Maneja la respuesta de la API
@@ -117,9 +69,38 @@ export default function QRScanner({ navigation }) {
     setIdUsuario(1);
   };
 
-  const handleError = (err) => {
-    console.error(err);
+  //=========== POSTEAR EN API ==============================================
+
+  const fetchData2 = (puntos) => {
+    axios
+      .put("http://10.152.2.134:3000/user/1", { puntos: puntos })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
+
+  const fetchData = (idEstacion, idUsuario, botellasIngresadas, date, puntos) => {
+    console.log("Llamando a movimientos");
+    axios.post("http://localhost:3000/movimientos/", {
+        Id_Estaciones: idEstacion,
+        Id_Usuario: idUsuario,
+        Fecha: date,
+        CantBotellas: botellasIngresadas,
+        Puntos: puntos,
+      })
+      .then((response) => {
+        console.log("rta de movimientos: ");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+//============== RETURN =====================================================
 
   if (hasPermission === null) {
     return (
