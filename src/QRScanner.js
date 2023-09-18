@@ -19,7 +19,7 @@ export default function QRScanner({ navigation }) {
   const [qrscan, setQrscan] = useState("No result");
   const [scanResults, setScanResults] = useState([]);
   
-//==================== ABRIR CAMARA ===========================================
+//=========================================== ABRIR CAMARA ===========================================
 
   const onQRCodeRead = (e) => {
     console.log(
@@ -44,7 +44,7 @@ export default function QRScanner({ navigation }) {
       .catch((error) => console.log());
   }, []);
 
-//============== LEER QR ===================================================
+//=========================================== LEER QR ===========================================
 
   useEffect(() => {
     console.log(
@@ -73,7 +73,7 @@ export default function QRScanner({ navigation }) {
 
   const fetchData2 = (puntos) => {
     axios
-      .put("http://10.152.2.134:3000/user/1", { puntos: puntos })
+      .put("http://localhost:3000/user/1", { puntos: puntos })
       .then((response) => {
         console.log(response.data);
       })
@@ -145,6 +145,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#479A50",
   },
 });
-
-//puntos = lo q me mando el qr x 100, pegarle a la api y con fetch, post mov estacion y idusuario, fecha, cantbotellas del qr y punto, lo q calcule, llamo al post de la api para insertareesto.
-//lo mismo con usuarios con sus propios campos, update los puntos. llamar al endpoint de update
