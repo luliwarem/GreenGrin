@@ -23,42 +23,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavBar style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{ title: "Home" }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ title: "Login" }}
-          />
-          <Stack.Screen
-            name="QRScanner"
-            component={QRScanner}
-            options={{ title: "QRScanner" }}
-          />
-          <Stack.Screen
-            name="Buscar"
-            component={Buscar}
-            options={{ title: "Buscar" }}
-          />
-          <Stack.Screen
-            name="HistorialDeMovimientos"
-            component={Historial}
-            options={{ title: "Historial De Movimientos" }}
-          />
-          <Stack.Screen
-            name="CanjearPuntos"
-            component={CanjearPuntos}
-            options={{ title: "Canjear Puntos" }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-      </NavBar>
+      <NavBar/>
   );
 }
 

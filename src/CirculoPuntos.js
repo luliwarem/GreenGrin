@@ -16,7 +16,7 @@ export default function CirculoPuntos(){
         <LinearGradient colors={['#479A50', '#94C11F']} style={styles.gradient}>
             <View style={styles.circleShape}>
                 <Text style = {styles.buttonText}>
-                    2200 puntos
+                  2200 GreenPoints
                 </Text>
             </View>
         </LinearGradient>
