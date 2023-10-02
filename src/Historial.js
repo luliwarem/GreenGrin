@@ -7,15 +7,14 @@ export default function Historial(navigation) {
 
 
     useEffect(() => {
-        const id = route.params.id;
-        async function getById(id) {
+        async function getByUserId(userId) {
           const response = await axios.get(
-            `http://localhost:3000/movimientos/${id}/information?apiKey=16e51661dd5e48d3aabf05fb9a637d13`
+            `http://localhost:3000/movimientos/user/${id}`
           );
-          setPlatoElegido(response.data);
+          setHistorial(response.data);
         }
-        getById(id);
-      }, []);
+        getByUserId(id);
+    }, []);
 
   const Item = ({ fecha, cantBotellas, puntos }) => (
     <View style={styles.item}>
@@ -33,8 +32,6 @@ export default function Historial(navigation) {
            renderItem={({ item }) => (
              <Item fecha={item.fecha} cantBotellas={item.cantBotellas} puntos={item.puntos} />
            )}
-           keyExtractor={(item) => item.id}
-           
            />
 
         </View>
