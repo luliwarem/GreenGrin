@@ -8,9 +8,9 @@ import {
   TextInput,
 } from "react-native";
 import Login from "./src/Login";
-import { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Registro from "./src/Registro"
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from "./src/HomeScreen";
 import QRScanner from "./src/QRScanner";
 import Buscar from "./src/Buscar"
@@ -23,7 +23,23 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-      <NavBar/>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={Login} 
+        />
+        <Stack.Screen
+          name="Registro"
+          component={Registro}
+        />
+        <Stack.Screen 
+          name="NavBar" 
+          component={NavBar} 
+        />
+      
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

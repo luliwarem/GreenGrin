@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
+import axios from 'axios'
 
 export default function Historial(navigation) {
   const [historial, setHistorial] = useState([]);
