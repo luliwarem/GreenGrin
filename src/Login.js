@@ -10,31 +10,57 @@ import {
 import { Formik } from "formik";
 import { LinearGradient } from "expo-linear-gradient";
 import logoGreenGrin from "../assets/LogoTerminado.png";
+import { useContextState } from "../contextState";
 
-export default function Login() {
+export default function Login({navigation}) {
+  const { contextState, setContextState } = useContextState();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const datos = new FormData(e.target);
-    const Usuario = {
-      mail: datos.get("mail"),
-      contrasena: datos.get("contrasena"),
-    };
-    onTomarDatos(Usuario);
-  };
+  const onSubmitHandler = async (values) => {
+    useEffect(() => {
+      async function getUserByEmail(values) {
+        const response = await axios.get(
+          `http://localhost:80/user/`,{ params: { Email: values.email, Password: values.password } }
+        )
+        if(response="error"){
+          alert("Error! El mail o la ocntraseña son incorrectos, intente nuevamente")
+        }else{
+          setContextState({ newValue: response.data, type: "SET_USER" });
+          const token = await await axios.get(`http://localhost:80/auth/login`,);
+          setContextState({ newValue: token, type: "SET_USER_TOKEN" });
+          console.log(token)
+          navigation.navigate("HomeScreen")
+        }
+      }
+      getUserByEmail(values);
+    }, []);
+    }
+
+  const handleKeyPress = (event, values) => {
+    if(event.key === 'Enter'){
+      onSubmitHandler(values)    }
+  }
 
   return (
-    <Formik onSubmit={values => console.log(values)}>
-      {({handleSubmit}) => (
+    <Formik initialValues={{ email: '', password: ''}} onSubmit={onSubmitHandler}>
+       {({ handleSubmit, handleChange, handleBlur, values  }) => (
         <View style={styles.container}>
           <Image source={logoGreenGrin} style={styles.image} />
           <TextInput
             style={styles.input}
             placeholder="E-mail"
+            value={values.email}
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            onKeyPress={(e) => handleKeyPress(e, values)}
           />
           <TextInput
+            secureTextEntry={true}
             style={styles.input}
+            value={values.password}
+            onChangeText={handleChange('password')}
+            onBlur={handleBlur('password')}
             placeholder="Contraseña"
+            onKeyPress={(e) => handleKeyPress(e, values)}
           />
           <LinearGradient
             colors={["#479A50", "#94C11F"]}
