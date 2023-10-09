@@ -16,7 +16,10 @@ export default function CirculoPuntos(){
         <LinearGradient colors={['#479A50', '#94C11F']} style={styles.gradient}>
             <View style={styles.circleShape}>
                 <Text style = {styles.buttonText}>
-                  2200 GreenPoints
+                  2200
+                </Text>
+                <Text style = {styles.buttonText}>
+                  GreenPoints
                 </Text>
             </View>
         </LinearGradient>
@@ -54,12 +57,13 @@ const styles = StyleSheet.create({
       shadowRadius: 10,
     },
     buttonText: {
+      fontSize: 20,
       color: "white",
       fontWeight: "bold",
     },
     circleShape: {
-        width: 200,
-        height: 200,
+        width: 250,
+        height: 250,
         justifyContent: "center",
         alignItems: 'center',
       },

@@ -24,9 +24,9 @@ export default function QRScanner({ navigation }) {
   const onQRCodeRead = (e) => {
     console.log(
       [idEstacion, idUsuario, botellasIngresadas, date, puntos].join(" - ")
-    );
+    );/*
     fetchData(idEstacion, idUsuario, botellasIngresadas, date, puntos);
-    fetchData2(puntos);
+    fetchData2(puntos);*/
   };
 
   const askForCameraPermission = () => {
@@ -35,7 +35,7 @@ export default function QRScanner({ navigation }) {
   };
 
   useEffect(() => {
-    fetchData(1, 1, 0, new Date(), 0);
+   // fetchData(1, 1, 0, new Date(), 0);
     BarCodeScanner.requestPermissionsAsync()
       .then((res) => {
         console.log(res);
@@ -70,7 +70,7 @@ export default function QRScanner({ navigation }) {
   };
 
   //=========== POSTEAR EN API ==============================================
-
+/*
   const fetchData2 = (puntos) => {
     axios
       .put("http://localhost:3000/user/1", { puntos: puntos })
@@ -99,7 +99,7 @@ export default function QRScanner({ navigation }) {
         console.error(error);
       });
   };
-
+*/
 //============== RETURN =====================================================
 
   if (hasPermission === null) {
@@ -138,10 +138,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#469735",
   },
   escanea: {
+    overflow: 'hidden',
     color: "#FFFFFF",
-    width: 200,
+    textAlign: "center",
+    padding: 10,
     margin: -85,
-    fontWeight: 600,
+    fontWeight: "bold",
     backgroundColor: "#479A50",
+    borderRadius: "10px",
   },
 });

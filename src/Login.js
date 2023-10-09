@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Text,
   View,
@@ -11,18 +11,19 @@ import { Formik } from "formik";
 import { LinearGradient } from "expo-linear-gradient";
 import logoGreenGrin from "../assets/LogoTerminado.png";
 import { useContextState } from "../contextState";
+import axios from "axios"
 
 export default function Login({navigation}) {
   const { contextState, setContextState } = useContextState();
 
   const onSubmitHandler = async (values) => {
-    useEffect(() => {
       async function getUserByEmail(values) {
+        console.log(values)
         const response = await axios.get(
           `http://localhost:80/user/`,{ params: { Email: values.email, Password: values.password } }
         )
-        if(response="error"){
-          alert("Error! El mail o la ocntraseña son incorrectos, intente nuevamente")
+        if(response.data==="Error"){
+          return alert("Error! El mail o la ocntraseña son incorrectos, intente nuevamente")
         }else{
           setContextState({ newValue: response.data, type: "SET_USER" });
           const token = await await axios.get(`http://localhost:80/auth/login`,);
@@ -32,7 +33,6 @@ export default function Login({navigation}) {
         }
       }
       getUserByEmail(values);
-    }, []);
     }
 
   const handleKeyPress = (event, values) => {
@@ -41,9 +41,10 @@ export default function Login({navigation}) {
   }
 
   return (
+    <View style= {styles.container}>
     <Formik initialValues={{ email: '', password: ''}} onSubmit={onSubmitHandler}>
        {({ handleSubmit, handleChange, handleBlur, values  }) => (
-        <View style={styles.container}>
+        <View>
           <Image source={logoGreenGrin} style={styles.image} />
           <TextInput
             style={styles.input}
@@ -67,23 +68,34 @@ export default function Login({navigation}) {
             style={styles.gradient}
           >
             <TouchableOpacity
-              style={styles.button}
-              onPress={handleSubmit}
+            style= {styles.button}
+              onPress={() => handleSubmit()}
             >
               <Text style={styles.buttonText}>Ingresar</Text>
             </TouchableOpacity>
-          </LinearGradient>
-          <TouchableOpacity style={styles.invisibleButton}>
+            </LinearGradient>
+          </View>
+      )}
+    </Formik>
+          
+          <TouchableOpacity 
+          style={styles.invisibleButton} 
+          onPress={() => navigation.navigate("Registro")}
+          >
             <Text style={styles.quitLogin}>
               ¿No tenes cuenta aún? Registrate aquí
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.invisibleButton}>
+          <TouchableOpacity style={styles.invisibleButton2}>
             <Text style={styles.quitLogin}>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity>
+          <LinearGradient
+            colors={["#479A50", "#94C11F"]}
+            style={styles.gradient}
+          >
+            
+          </LinearGradient>
         </View>
-      )}
-    </Formik>
   );
 }
 
@@ -135,6 +147,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   invisibleButton: {
+    marginTop: 10,
+  },
+  invisibleButton2: {
+    marginBottom:10,
     marginTop: 10,
   },
   image: { height: 200, width: 300, resizeMode: "contain" },

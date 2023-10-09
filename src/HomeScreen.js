@@ -17,6 +17,8 @@ import { ListItem } from 'react-native-elements';
 
 export default function HomeScreen({ navigation }) {
   const [imageSources, setImageSources] = useState([]);
+  const [imgPerfil, setImgPerfil] = useState('https://hips.hearstapps.com/rover/profile_photos/67055711-c808-4a4d-811a-e7155a2bce10_1667409691.file');
+  const [mapa, setMapa] = useState('https://www.lavanguardia.com/files/image_948_465/uploads/2015/08/28/5fa28157b6339.jpeg');
 
   const images = [
     { id: '1', imageUrl: 'https://seeklogo.com/images/E/easy-logo-3360580055-seeklogo.com.png' },
@@ -31,31 +33,30 @@ export default function HomeScreen({ navigation }) {
     <ScrollView>
     <View style={styles.container1}>
       <View style={styles.container2}>
-        <Image source="https://hips.hearstapps.com/rover/profile_photos/67055711-c808-4a4d-811a-e7155a2bce10_1667409691.file" style={styles.perfil}/>
+        <Image style={styles.perfil} source={{ uri: imgPerfil }} />
         <Text style={styles.usuario}> Hola, Patricia!</Text>
       </View>
       
       <CirculoPuntos style={styles.circleShape}/>
       <Text style={styles.items}>Recomendaciones para ti</Text>
-        {/*aca van las fotos scollView horizontal*/}
         <ScrollView
           horizontal={true}
           style={styles.scroll}
         >
-        <FlatList
+          <FlatList
           data={images}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: item.imageUrl }} style={styles.image} />
-          </View>
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: item.imageUrl }} style={styles.image} />
+            </View>
           )}
-        />
+          />
         </ScrollView>
       <Text style={styles.estaciones}>Estaciones Green</Text>
-        <Image source='https://www.lavanguardia.com/files/image_948_465/uploads/2015/08/28/5fa28157b6339.jpeg'style={styles.mapa} />
+        <Image style={styles.mapa} source={{ uri: mapa }}/>
     </View>
     </ScrollView>
   );
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   circleShape: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     borderRadius: 150 / 2,
     justifyContent: "center",
     alignItems: "center",
@@ -115,16 +116,18 @@ const styles = StyleSheet.create({
     width: 370,
     marginTop: 0,
     fontSize: 20,
-    marginBottom: 100,
+    marginBottom: 70,
   },
   items: {
-    marginTop:100,
+    fontSize:18,
+    marginTop:70,
     color: "green",
     fontWeight: "bold",
     width: 370,
     margin: 10,
   },
   estaciones: {
+    fontSize:17,
     color: "green",
     fontWeight: "bold",
     width: 370,
@@ -137,8 +140,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 117,
+    height: 117,
     borderRadius: 10,
   },
   mapa: {
