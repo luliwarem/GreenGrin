@@ -13,9 +13,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import CirculoPuntos from "./CirculoPuntos";
 import NavBar from "./NavBar";
 import QRScanner from "./QRScanner";
+
 import { ListItem } from 'react-native-elements';
+import { useContextState } from "./contextState";
 
 export default function HomeScreen({ navigation }) {
+
+  const { contextState, setContextState } = useContextState();
+
   const [imageSources, setImageSources] = useState([]);
   const [imgPerfil, setImgPerfil] = useState('https://hips.hearstapps.com/rover/profile_photos/67055711-c808-4a4d-811a-e7155a2bce10_1667409691.file');
   const [mapa, setMapa] = useState('https://www.lavanguardia.com/files/image_948_465/uploads/2015/08/28/5fa28157b6339.jpeg');
@@ -28,13 +33,21 @@ export default function HomeScreen({ navigation }) {
     { id: '5', imageUrl: 'https://brandemia.org/contenido/subidas/2022/10/marca-mcdonalds-logo-1200x670.png' },
     { id: '6', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlERLuPO0nRJfq9obtvB1jp13kWnHPmY2fMQ&usqp=CAU' },
   ];
- 
+
+  console.log(contextState.user)
+  useEffect(() => {
+    if(contextState.userToken == undefined){
+
+      alert("No hay token, por favor vuelva a iniciar sesion")
+      navigation.navigate("Login")
+    }
+  }, []);
   return (
     <ScrollView>
     <View style={styles.container1}>
       <View style={styles.container2}>
         <Image style={styles.perfil} source={{ uri: imgPerfil }} />
-        <Text style={styles.usuario}> Hola, Patricia!</Text>
+        <Text style={styles.usuario}> Hola, {contextState.user.Nombre}</Text>
       </View>
       
       <CirculoPuntos style={styles.circleShape}/>
@@ -60,6 +73,8 @@ export default function HomeScreen({ navigation }) {
     </View>
     </ScrollView>
   );
+
+  
 }
 
 const styles = StyleSheet.create({

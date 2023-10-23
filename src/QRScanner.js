@@ -3,11 +3,15 @@ import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { CurrentRenderContext } from "@react-navigation/native";
 import axios from "axios";
+import { useContextState } from "./contextState";
+
 
 // npm install react-native-camera react-native-qrcode-scanner
 // import { RNCamera } from 'react-native-camera'
 
 export default function QRScanner({ navigation }) {
+  const { contextState, setContextState } = useContextState();
+
   const [date, setDate] = useState();
   const [idEstacion, setIdEstacion] = useState();
   const [botellasIngresadas, setBotellasIngresadas] = useState();
@@ -73,7 +77,7 @@ export default function QRScanner({ navigation }) {
 /*
   const fetchData2 = (puntos) => {
     axios
-      .put("http://localhost:3000/user/1", { puntos: puntos })
+      .put("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/user/1", { puntos: puntos })
       .then((response) => {
         console.log(response.data);
       })
@@ -84,7 +88,7 @@ export default function QRScanner({ navigation }) {
 
   const fetchData = (idEstacion, idUsuario, botellasIngresadas, date, puntos) => {
     console.log("Llamando a movimientos");
-    axios.post("http://localhost:3000/movimientos/", {
+    axios.post("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos/", {
         Id_Estaciones: idEstacion,
         Id_Usuario: idUsuario,
         Fecha: date,
@@ -101,7 +105,12 @@ export default function QRScanner({ navigation }) {
   };
 */
 //============== RETURN =====================================================
-
+useEffect(() => {
+  if(contextState.userToken == ""){
+    alert("No hay token, por favor vuelva a iniciar sesion")
+    navigation.navigate("Login")
+  }
+}, []);
   if (hasPermission === null) {
     return (
       <View style={styles.cameraContainer}>

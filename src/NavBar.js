@@ -31,7 +31,6 @@ const Tab = createBottomTabNavigator();
 
 export default function NavBar() {
   return (
-    <NavigationContainer>
       <Tab.Navigator
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
@@ -60,13 +59,12 @@ export default function NavBar() {
           tabBarStyle: { padding: 10, height: 100 },
         }}
       >
-        <Tab.Screen name={homeName} component={HomeScreen} />
-        <Tab.Screen name={buscarName} component={Buscar} />
-        <Tab.Screen name={qrScannerName} component={QRScanner} />
-        <Tab.Screen name={historialName} component={Historial} />
-        <Tab.Screen name={canjearPuntosName} component={CanjearPuntos} />
+        <Tab.Screen name={homeName} component={HomeScreen} options={{ headerShown: false }} />
+        <Tab.Screen name={buscarName} component={Buscar} options={{ headerShown: false }}/>
+        <Tab.Screen name={qrScannerName} component={QRScanner} options={{ headerShown: false }}/>
+        <Tab.Screen name={historialName} component={Historial} options={{ headerShown: false }}/>
+        <Tab.Screen name={canjearPuntosName} component={CanjearPuntos} options={{ headerShown: false }}/>
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

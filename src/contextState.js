@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 
 export const initialState = {
   userToken: "",
-  userId: 0,
+  user: {},
 };
 
 export const ActionTypes = {
   setUserToken: "SET_USER_TOKEN",
-  setUserId: "SET_USER_ID",
+  setUser: "SET_USER",
 };
 
 export const reducer = (state = initialState, action) => {
@@ -15,8 +15,8 @@ export const reducer = (state = initialState, action) => {
     case ActionTypes.setUserToken: {
       return { ...state, userToken: action.newValue };
     }
-    case ActionTypes.setUserId: {
-      return { ...state, userId: action.newValue};
+    case ActionTypes.setUser: {
+      return { ...state, user: action.newValue};
     }
     default: {
       return state;

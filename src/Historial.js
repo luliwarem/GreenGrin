@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
 import axios from "axios";
+import { useContextState } from "./contextState";
+
 
 export default function Historial(navigation) {
+  const { contextState, setContextState } = useContextState();
+
   const [historial, setHistorial] = useState([]);
-  const id = 1;
+  const id = contextState.user.Id;
 
   useEffect(() => {
     async function getByUserId(id) {
       const response = await axios.get(
-        `http://localhost:80/movimientos/user/${id}`
+        `https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos/user/${id}`
       );
       setHistorial(response.data);
+      console.log(response.data)
     }
     getByUserId(id);
   }, []);
@@ -21,13 +26,18 @@ export default function Historial(navigation) {
       <Text style={styles.title}>Fecha: {fecha}</Text>
       <Text style={styles.title}>Botellas ingresadas: {cantBotellas}</Text>
       <Text style={styles.title}>Puntos obtenidos: {puntos}</Text>
-       
     </View>
   );
 
+  useEffect(() => {
+    if(contextState.userToken == undefined){
+      alert("No hay token, por favor vuelva a iniciar sesion")
+      navigation.navigate("Login")
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
-      {console.log(historial)}
       <FlatList
         data={historial}
         renderItem={({ item }) => (
