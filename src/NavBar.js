@@ -19,6 +19,7 @@ import Buscar from "./Buscar";
 import Historial from "./Historial";
 import QRScanner from "./QRScanner";
 import CanjearPuntos from "./CanjearPuntos";
+import Acreditacion from "./Acreditacion";
 
 //Screen names
 const homeName = "Home";
@@ -61,7 +62,7 @@ export default function NavBar() {
       >
         <Tab.Screen name={homeName} component={HomeScreen} options={{ headerShown: false }} />
         <Tab.Screen name={buscarName} component={Buscar} options={{ headerShown: false }}/>
-        <Tab.Screen name={qrScannerName} component={QRScanner} options={{ headerShown: false }}/>
+        <Tab.Screen name={qrScannerName} component={Acreditacion} options={{ headerShown: false }}/>
         <Tab.Screen name={historialName} component={Historial} options={{ headerShown: false }}/>
         <Tab.Screen name={canjearPuntosName} component={CanjearPuntos} options={{ headerShown: false }}/>
       </Tab.Navigator>
