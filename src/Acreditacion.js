@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     container2: {
-        width: 300,
+        width: 330,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     buttonText3: {
         fontSize: 17,
         justifyContent: "center",
-        alignItems: "center",
+        textAlign: "center",
         color: '#479A50',
         fontWeight: "bold",
         paddingTop: 20,
