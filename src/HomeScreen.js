@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation }) {
     { id: '2', imageUrl: 'https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5362a828-0f5b-4d17-a6c5-d0677dc89baa_1000x1000.jpeg' },
     { id: '3', imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_879957-MLA69998218581_062023-O.webp' },
     { id: '4', imageUrl: 'https://boardinggate.com.sg/wp-content/uploads/Jansport-Logo.png' },
-    { id: '5', imageUrl: 'https://brandemia.org/contenido/subidas/2022/10/marca-mcdonalds-logo-1200x670.png' },
+    { id: '5', imageUrl: 'https://cdn.cnn.com/cnnnext/dam/assets/181109204242-mercado-libre-estrategias-longobardi-full-169.jpg' },
     { id: '6', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlERLuPO0nRJfq9obtvB1jp13kWnHPmY2fMQ&usqp=CAU' },
   ];
 
@@ -167,5 +167,5 @@ const styles = StyleSheet.create({
   },
   scroll:{
     marginLeft:15,
-  }
+  },
 });
