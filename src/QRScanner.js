@@ -33,11 +33,6 @@ export default function QRScanner({ navigation }) {
     fetchData2(puntos);*/
   };
 
-  const askForCameraPermission = () => {
-    (async () => {
-    })();
-  };
-
   useEffect(() => {
    // fetchData(1, 1, 0, new Date(), 0);
     BarCodeScanner.requestPermissionsAsync()
@@ -68,9 +63,15 @@ export default function QRScanner({ navigation }) {
     console.log("OBJ!!!!", obj);
     setBotellasIngresadas(obj.botellas);
     setIdEstacion(obj.idEstacion); // Maneja la respuesta de la API
-    setDate(Date.now());
+    const date = new Date();
+    let currentDay= String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+    let currentYear = date.getFullYear();
+    let currentDate = `${currentYear}-${currentDay}-${currentMonth}`;    
+    setDate(currentDate)
     setPuntos(obj.botellas * 100);
     setIdUsuario(1);
+    fetchData(idEstacion,idUsuario, botellasIngresadas, date, puntos)
   };
 
   //=========== POSTEAR EN API ==============================================
@@ -85,25 +86,26 @@ export default function QRScanner({ navigation }) {
         console.error(error);
       });
   };
-
+*/
   const fetchData = (idEstacion, idUsuario, botellasIngresadas, date, puntos) => {
     console.log("Llamando a movimientos");
-    axios.post("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos/", {
-        Id_Estaciones: idEstacion,
-        Id_Usuario: idUsuario,
-        Fecha: date,
-        CantBotellas: botellasIngresadas,
-        Puntos: puntos,
-      })
+    axios.post("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos", {params:{
+        idEstacion,
+        idUsuario,
+        botellasIngresadas,
+        date,
+        puntos
+  }})
       .then((response) => {
         console.log("rta de movimientos: ");
         console.log(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.log("error");
+        console.log(error);
       });
   };
-*/
+
 //============== RETURN =====================================================
 useEffect(() => {
   if(contextState.userToken == ""){
@@ -111,6 +113,7 @@ useEffect(() => {
     navigation.navigate("Login")
   }
 }, []);
+
   if (hasPermission === null) {
     return (
       <View style={styles.cameraContainer}>
@@ -154,6 +157,6 @@ const styles = StyleSheet.create({
     margin: -85,
     fontWeight: "bold",
     backgroundColor: "#479A50",
-    borderRadius: "10px",
+    borderRadius: 10,
   },
 });

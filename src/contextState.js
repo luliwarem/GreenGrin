@@ -39,7 +39,7 @@ export function ContextProvider({ children, state = initialState }) {
 
   return (
     <Context.Provider value={{ contextState, setContextState }}>
-      {children}{" "}
+      {children}
     </Context.Provider>
   );
 }

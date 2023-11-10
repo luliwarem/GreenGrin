@@ -188,6 +188,5 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         marginTop:5,
         marginBottom: 15,
-        placeholderTextColor: "gray",
     },
 });

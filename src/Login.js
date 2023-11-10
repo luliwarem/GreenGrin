@@ -34,6 +34,7 @@ export default function Login({ navigation }) {
           `https://greengrin-backend-dev-ebes.1.us-1.fl0.io/auth/login`
         );
         setContextState({ newValue: token, type: "SET_USER_TOKEN" });
+        console.log(token)
         navigation.navigate("NavBar");
       }
     }
@@ -62,6 +63,7 @@ export default function Login({ navigation }) {
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
               onKeyPress={(e) => handleKeyPress(e, values)}
+              placeholderTextColor="gray"
             />
             <TextInput
               secureTextEntry={true}
@@ -71,6 +73,7 @@ export default function Login({ navigation }) {
               onBlur={handleBlur("password")}
               placeholder="Contraseña"
               onKeyPress={(e) => handleKeyPress(e, values)}
+              placeholderTextColor="gray"
             />
             <LinearGradient
               colors={["#479A50", "#94C11F"]}
@@ -138,14 +141,16 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 330,
     borderRadius: 20,
+    shadowColor: "#000",
     shadowOffset: {
-      width: 3,
-      height: 5,
+      width: 0,
+      height: 2,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
     marginBottom: 15,
-    placeholderTextColor: "gray",
   },
   quitLogin: {
     color: "#479A50",

@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 10,
     marginBottom: 30,
-    placeholderTextColor: "gray",
   },
   quitLogin: {
     color: "#479A50",
