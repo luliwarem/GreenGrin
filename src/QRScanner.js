@@ -22,19 +22,21 @@ export default function QRScanner({ navigation }) {
   const [text, setText] = useState("Not yet scanned");
   const [qrscan, setQrscan] = useState("No result");
   const [scanResults, setScanResults] = useState([]);
-  
-//=========================================== ABRIR CAMARA ===========================================
 
-  const onQRCodeRead = (e) => {
+  //=========================================== ABRIR CAMARA ===========================================
+  const onQRCodeRead = () => {
     console.log(
       [idEstacion, idUsuario, botellasIngresadas, date, puntos].join(" - ")
-    );/*
-    fetchData(idEstacion, idUsuario, botellasIngresadas, date, puntos);
-    fetchData2(puntos);*/
+    );
+    console.log("ïdEstacion:", idEstacion);
+    console.log("botellasIngresadas:", botellasIngresadas);  
+
+    fetchData(idEstacion, idUsuario, date, botellasIngresadas, puntos);/*
+  fetchData2(puntos);*/
   };
 
   useEffect(() => {
-   // fetchData(1, 1, 0, new Date(), 0);
+    // fetchData(1, 1, 0, new Date(), 0);
     BarCodeScanner.requestPermissionsAsync()
       .then((res) => {
         console.log(res);
@@ -43,13 +45,11 @@ export default function QRScanner({ navigation }) {
       .catch((error) => console.log());
   }, []);
 
-//=========================================== LEER QR ===========================================
+  //=========================================== LEER QR ===========================================
 
   useEffect(() => {
-    console.log(
-      [idEstacion, idUsuario, botellasIngresadas, date, puntos].join(" - ")
-    );
-    if (idEstacion) {
+    if(idEstacion!=null){
+
       onQRCodeRead();
     }
   }, [idEstacion, idUsuario, botellasIngresadas, date, puntos]);
@@ -64,38 +64,37 @@ export default function QRScanner({ navigation }) {
     setBotellasIngresadas(obj.botellas);
     setIdEstacion(obj.idEstacion); // Maneja la respuesta de la API
     const date = new Date();
-    let currentDay= String(date.getDate()).padStart(2, '0');
-    let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+    let currentDay = String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth() + 1).padStart(2, "0");
     let currentYear = date.getFullYear();
-    let currentDate = `${currentYear}-${currentDay}-${currentMonth}`;    
+    let currentDate = `${currentYear}-${currentDay}-${currentMonth}`;
     setDate(currentDate)
     setPuntos(obj.botellas * 100);
     setIdUsuario(1);
-    fetchData(idEstacion,idUsuario, botellasIngresadas, date, puntos)
   };
 
   //=========== POSTEAR EN API ==============================================
-/*
-  const fetchData2 = (puntos) => {
-    axios
-      .put("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/user/1", { puntos: puntos })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-*/
-  const fetchData = (idEstacion, idUsuario, botellasIngresadas, date, puntos) => {
+  /*
+    const fetchData2 = (puntos) => {
+      axios
+        .put("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/user/1", { puntos: puntos })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  */
+  const fetchData = (idEstacion, idUsuario, date, botellasIngresadas, puntos) => {
     console.log("Llamando a movimientos");
-    axios.post("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos", {params:{
-        idEstacion,
-        idUsuario,
-        botellasIngresadas,
-        date,
-        puntos
-  }})
+    axios.post("https://greengrin-backend-dev-ebes.1.us-1.fl0.io/movimientos",{
+      Id_Estaciones : idEstacion,
+      Id_Usuario: idUsuario,
+      Fecha: date,
+      CantBotellas: botellasIngresadas,
+      Puntos: puntos
+  })
       .then((response) => {
         console.log("rta de movimientos: ");
         console.log(response.data);
@@ -106,13 +105,13 @@ export default function QRScanner({ navigation }) {
       });
   };
 
-//============== RETURN =====================================================
-useEffect(() => {
-  if(contextState.userToken == ""){
-    alert("No hay token, por favor vuelva a iniciar sesion")
-    navigation.navigate("Login")
-  }
-}, []);
+  //============== RETURN =====================================================
+  useEffect(() => {
+    if (contextState.userToken == "") {
+      alert("No hay token, por favor vuelva a iniciar sesion")
+      navigation.navigate("Login")
+    }
+  }, []);
 
   if (hasPermission === null) {
     return (
