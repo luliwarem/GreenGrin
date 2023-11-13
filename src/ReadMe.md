@@ -5,7 +5,7 @@ Esta es la Aplicacion Movil del proyecto GreenGrin realizado en el contexto de l
 
 ### Tecnologias y dependencias
 - [Node v18.14.0](https://nodejs.org/es/docs)
-- [Cors v6.3.1](https://docs.expo.dev/)
+- [Expo v6.3.1](https://docs.expo.dev/)
 - [React Native](https://reactnative.dev/docs/getting-started)
 - [Axios](https://axios-http.com/es/docs/intro)
 
